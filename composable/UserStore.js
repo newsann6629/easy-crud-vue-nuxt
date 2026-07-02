@@ -28,7 +28,7 @@ export const useUserStore = defineStore("UserStore",{
         Logout(){
             if(typeof window != 'undefined'){
                 localStorage.removeItem("token")
-                this.token = "notoken"
+                this.token = null
                 this.user = null
                 this.id = null
             }

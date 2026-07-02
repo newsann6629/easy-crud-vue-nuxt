@@ -23,17 +23,32 @@ export const useService = () => {
         }
     }
 
+    const getd = async() => {
+        store.LoadUser()
+        try{
+            const res = await axios("http://localhost:5000/api/messages",{
+                headers: {
+                    token:store.token
+                }
+            })
+            console.log(res.data.data)
+            return res.data.data
+        }catch(err){
+            console.log(err)
+        }
+    }
+
     const loginbasic = async(u,p)=>{
         try{
-            const res = await axios.post("http://localhost:5000/api/auth/login",{
-            identity:u,
+            const res = await axios.post("http://192.168.12.241:5000/api/login",{
+            username:u,
             password:p,
         })
             store.SetUser(res.data.data.token)
-            alert("login success")
+            alert(res.data.message)
             go.push("/user")
         }catch(err){
-            alert(err)
+            alert(err.response.data.message)
         }
     }
 
@@ -56,7 +71,8 @@ export const useService = () => {
     })
 
     const getdata = () => req(async() =>{
-        const res = await http.get("messages")
+        const res = await http("messages")
+        console.log(res.data.data)
         return(res.data.data)
     })
 
@@ -79,13 +95,14 @@ export const useService = () => {
 
     const createMessage = (content) => req(async () => {
     const res = await http.post("messages", {
-        content
+        content:content
     })
 
     return res.data
     })
 
     return {
+        getd,
         createMessage,
         updateMessage,
         deleteMessage,

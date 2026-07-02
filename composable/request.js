@@ -3,7 +3,7 @@ export const req = async(cb) => {
         const data = await cb()
         return{ok:true,data}
     }catch(err){
-        console.log(err)
+        alert(err.response.data.message)
         return{ok:false,err}
     }
 }

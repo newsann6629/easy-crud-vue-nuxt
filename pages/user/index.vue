@@ -18,11 +18,7 @@
             :key="item.id"
             style="margin-bottom:20px"
         >
-            <textarea
-                v-model="item.content"
-                rows="3"
-                cols="50"
-            ></textarea>
+            <textarea v-model="item.content" rows="3" cols="50" ></textarea>
 
             <br>
 
@@ -46,19 +42,15 @@ import { ref, onMounted } from "vue"
 import { useService } from "~/composable/Service"
 
 const {
-    logout,
-    getdata,
-    createMessage,
-    updateMessage,
-    deleteMessage
-} = useService()
+    getd,logout,getdata,createMessage,updateMessage,deleteMessage} = useService()
 
-const text = ref([])
+const text = ref([""])
 const newMessage = ref("")
 
 const loadData = async () => {
-    const res = await getdata()
-    text.value = res.data
+    const res = await getd()
+    console.log(res)
+    text.value = res
 }
 
 onMounted(loadData)
